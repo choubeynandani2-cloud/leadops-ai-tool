@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Audit your B2B lead CSV for duplicates, missing fields and invalid URLs. Free, private, browser-only processing. No signup or file uploads to a server.">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>LeadOps AI — Free B2B Lead List Audit</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script defer src="assets/config.js"></script>
+  <script defer src="assets/sample-data.js"></script>
+  <script defer src="assets/audit.js"></script>
+  <script defer src="assets/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#tool">Skip to the audit tool</a>
+  <header class="site-header"><div class="container nav">
+    <a class="brand" href="#"><span class="brand-mark" aria-hidden="true">L</span>LeadOps <span>AI</span></a>
+    <nav aria-label="Main navigation"><a href="#how-it-works">How it works</a><a href="#privacy">Privacy</a><a class="nav-cta" href="#contact">Contact me <span aria-hidden="true">↗</span></a></nav>
+  </div></header>
+  <main>
+    <section class="container hero" aria-labelledby="hero-title">
+      <div><p class="eyebrow"><span class="live-dot" aria-hidden="true"></span>Free tool. Cleaner data. Better decisions.</p>
+        <h1 id="hero-title">Good outreach starts<br>with a <span>cleaner list.</span></h1>
+        <p class="hero-copy">Find duplicate companies, missing information and data quality issues before your sales team starts outreach.</p>
+        <div class="hero-actions"><a class="button" href="#tool">Audit your lead list <span aria-hidden="true">↓</span></a><span>No signup. No credit card.</span></div>
+        <ul class="trust-list"><li>100% browser-side</li><li>No external APIs</li><li>Your data stays yours</li></ul>
+      </div>
+      <aside class="preview" aria-label="Illustrative synthetic audit preview">
+        <div class="preview-top"><span class="preview-icon" aria-hidden="true">✓</span><div><b>A little clarity goes a long way.</b><small>Illustrative synthetic example</small></div></div>
+        <div class="preview-row"><span class="record-icon" aria-hidden="true">Aa</span><div><b>TEST DATA · Alpha Labs</b><small>Repeated company and website</small></div><span class="tag amber">Duplicate</span></div>
+        <div class="preview-row"><span class="record-icon" aria-hidden="true">—</span><div><b>TEST DATA · Missing website</b><small>Keep for a human to review</small></div><span class="tag rose">Incomplete</span></div>
+        <div class="preview-row"><span class="record-icon green" aria-hidden="true">✓</span><div><b>TEST DATA · Beta Labs</b><small>Passes format checks; unverified</small></div><span class="tag mint">Clean format</span></div>
+        <div class="preview-footer"><span class="lock-icon" aria-hidden="true">▣</span>Private by design. Nothing to upload.</div>
+      </aside>
+    </section>
+
+    <section class="container" id="tool" aria-labelledby="audit-title">
+      <div class="tool-shell">
+        <div class="tool-heading"><div><p class="eyebrow">Your list, under the microscope</p><h2 id="audit-title">Free B2B Lead List Audit</h2></div><span class="privacy-pill">Local processing only</span></div>
+        <p class="tool-intro">Choose a CSV to see what needs attention. We’ll keep the original records and explain every flag.</p>
+        <div class="upload-layout">
+          <label class="dropzone" id="dropzone" for="csv-file"><span class="upload-icon" aria-hidden="true">↑</span><b>Drop your CSV here</b><span>or choose a file from your device</span><input id="csv-file" type="file" accept=".csv,.tsv,text/csv,text/tab-separated-values" aria-label="Choose a CSV lead list"><small>UTF-8 CSV · Up to 2 MB · 2,000 records</small></label>
+          <div class="sample-card"><span class="small-label">JUST EXPLORING?</span><h3>See it in action.</h3><p>Try seven clearly synthetic records, including duplicates, missing information and a formula-risk example.</p><button class="button secondary" id="sample-button" type="button">Try Sample Data <span aria-hidden="true">→</span></button><small>No real businesses. No buying signals.</small></div>
+        </div>
+        <div class="tool-bar"><p id="audit-status" role="status" aria-live="polite">Ready when you are. Your file never leaves this browser.</p><button id="clear-button" class="text-button" type="button">Clear audit</button></div>
+        <noscript><p class="notice">JavaScript is required to process CSV files in your browser. No backend alternative is used.</p></noscript>
+
+        <section id="audit-results" hidden aria-labelledby="results-title">
+          <div class="results-heading"><div><span id="data-badge" class="tag mint"></span><h3 id="results-title">A clearer picture of your list.</h3></div><div class="download-actions"><a id="audited-download" class="button secondary" download="leadops-audited.csv">Download Audited CSV</a><a id="cleaned-download" class="button" download="leadops-cleaned.csv">Download Cleaned CSV</a></div></div>
+          <div id="metrics" class="metrics" aria-label="Audit summary"></div>
+          <div class="results-notes"><p id="quality-summary"></p><p>Cleaned means complete, unique and syntactically valid—not verified business information. Review possible duplicates before relying on the cleaned list.</p><p id="export-warning">All original records are preserved in the audited export. Formula-like cells are escaped; those records are excluded from the cleaned export.</p></div>
+          <div class="table-controls"><label class="search-label" for="issue-search">Search your results<input id="issue-search" type="search" placeholder="Company, website, original fields or issue…" autocomplete="off" maxlength="500"></label><label class="checkbox"><input id="issues-only" type="checkbox">Issues only</label></div>
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Lead audit results"><table><thead><tr><th scope="col">Record</th><th scope="col">Company / website</th><th scope="col">Issues &amp; reasons</th><th scope="col">Cleaned CSV</th></tr></thead><tbody id="result-rows"></tbody></table></div>
+          <div class="pagination"><p id="result-count" aria-live="polite"></p><div><button id="previous-page" type="button" class="page-button">← Previous</button><button id="next-page" type="button" class="page-button">Next →</button></div></div>
+        </section>
+      </div>
+    </section>
+
+    <section class="container explainer" id="how-it-works" aria-labelledby="how-title"><div class="section-heading"><p class="eyebrow">Simple on purpose</p><h2 id="how-title">From messy CSV to a usable next step.</h2></div><div class="steps"><article><span>01</span><h3>Choose your list</h3><p>Use familiar headers like Company, Business, Website or Domain. Extra columns stay with your records.</p></article><article><span>02</span><h3>Understand the issues</h3><p>Find repeated names and domains, missing fields, malformed URLs and formula-like content. Every flag has a reason.</p></article><article><span>03</span><h3>Download with confidence</h3><p>Keep the full audited list or a cleaned subset. No names, websites, contacts or buying intent are invented.</p></article></div></section>
+
+    <section class="container" id="privacy" aria-labelledby="privacy-title"><div class="privacy-panel"><div><p class="eyebrow">Built to respect your data</p><h2 id="privacy-title">Your CSV stays on your device.</h2><p>Files are processed locally in your browser and are never uploaded. No AI service, analytics, external API, cookies or browser storage are used by this tool. Clear the audit or close the tab to release results; exports are saved only when you download them.</p></div><ul><li>No server-side processing</li><li>No account required</li><li>No outreach or contact collection</li><li>No requests containing your lead data</li></ul></div></section>
+
+    <section class="container faq" aria-labelledby="faq-title"><h2 id="faq-title">A few things worth knowing.</h2><details><summary>What gets flagged as a duplicate?</summary><p>Website hostnames ignore scheme, a leading www., port and page paths. Company names normalize Unicode, case, spaces and punctuation. Shared domains or names can represent different branches, so flags need human review. Company suffixes are not guessed away.</p></details><details><summary>What is included in the cleaned CSV?</summary><p>The first complete, valid, formula-free representative per company name or website. It needs a company name and an absolute HTTP(S) website. A Source URL column is optional; if supplied, its values must also be complete and valid. An incomplete earlier row does not suppress a later complete representative.</p></details><details><summary>Which files work?</summary><p>UTF-8 with optional BOM, comma/semicolon/tab separators, quoted commas and newlines, and empty values. Limits: 2,097,152 bytes, 2,000 data records, 100 columns, and 128 UTF-8 bytes per heading. Ambiguous headers and malformed rows are rejected. Blank physical lines are ignored.</p></details><details><summary>Does a format pass mean a lead is verified?</summary><p>No. This tool checks data quality, not whether a company exists, a website works or a prospect intends to buy. Domain-only values are flagged rather than silently adding a scheme. Original values stay unchanged in memory; exports use safe quoting and formula escaping.</p></details></section>
+
+    <section class="container" id="contact" aria-labelledby="contact-title"><div class="contact-panel"><div><p class="eyebrow">Ready for the next step?</p><h2 id="contact-title">A cleaner list is just the beginning.</h2><p>Want to automate your entire lead research workflow? Contact me for a custom AI automation.</p></div><div><a id="contact-link" class="button light" target="_blank" rel="noopener noreferrer" hidden>Contact me on LinkedIn ↗</a><p id="contact-unconfigured" class="contact-unconfigured">LinkedIn contact link is not configured yet.</p></div></div></section>
+  </main>
+  <footer class="container footer"><a class="brand" href="#">LeadOps <span>AI</span></a><p>Free lead-list quality checks. Human judgment still matters.</p><a href="#privacy">Privacy by design ↑</a></footer>
+</body>
+</html>
